@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+
+            * {
+  
+                box-sizing: border-box;
+
+            }
+
+
+            body 
+            {
+  
+                background-color: #B0E0E6;
+  
+                font-family: "Happy Time";
+
+            }
+
+
+            /* The actual timeline (the vertical ruler) */
+
+            .timeline 
+            {
+  
+                position: relative;
+  
+                max-width: 1200px;
+  
+                margin: 0 auto;
+
+            }
+
+
+            /* The actual timeline (the vertical ruler) */
+
+            .timeline::after 
+            {
+  
+                content: '';
+  
+                position: absolute;
+  
+                width: 10px;
+  
+                background-color: #347B98;
+  
+                top: 0;
+  
+                bottom: 0;
+  
+                left: 50%;
+  
+                margin-left: -3px;
+
+            }
+
+
+            /* Container around content */
+
+            .container 
+            {
+  
+                padding: 10px 40px;
+  
+                position: relative;
+  
+                background-color: inherit;
+  
+                width: 50%;
+
+            }
+
+
+            /* The circles on the timeline */
+
+            .container::after 
+            {
+  
+                content: '';
+  
+                position: absolute;
+  
+                width: 25px;
+  
+                height: 25px;
+  
+                right: -17px;
+  
+                background-color: #110934;
+  
+                border: 5px solid #110934;
+  
+                top: 15px;
+  
+                border-radius: 50%;
+  
+                z-index: 1;
+
+            }
+
+
+            /* Place the container to the left */
+
+            .left {
+  
+                left: 0;
+
+            }
+
+
+            /* Place the container to the right */
+
+            .right {
+  
+                left: 50%;
+
+            }
+
+
+            /* Add arrows to the left container (pointing right) */
+
+            .left::before 
+            {
+  
+                content: " ";
+  
+                height: 0;
+  
+                position: absolute;
+  
+                top: 22px;
+  
+                width: 0;
+  
+                z-index: 1;
+  
+                right: 30px;
+  
+                border: medium solid white;
+  
+                border-width: 10px 0 10px 10px;
+  
+                border-color: transparent transparent transparent #110934;
+
+            }
+
+
+            /* Add arrows to the right container (pointing left) */
+
+            .right::before 
+            {
+  
+                content: " ";
+  
+                height: 0;
+  
+                position: absolute;
+  
+                top: 22px;
+  
+                width: 0;
+  
+                z-index: 1;
+  
+                left: 30px;
+  
+                border: medium solid white;
+  
+                border-width: 10px 10px 10px 0;
+  
+                border-color: transparent #110934 transparent transparent;
+
+            }
+
+
+            /* Fix the circle for containers on the right side */
+
+            .right::after 
+            {
+  
+                left: -16px;
+
+            }
+
+
+            /* The actual content */
+
+            .content 
+            {
+  
+                padding:  30px;
+  
+                background-color: #110934;
+  
+                position: relative;
+  
+                border-radius: 6px;
+    
+                font-size: 25px;
+    
+                color: #D4EDF7;
+
+            }
+
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media screen and (max-width: 600px) {
+  /* Place the timelime to the left */
+  .timeline::after {
+  left: 31px;
+  }
+  
+  
+    /* Full-width containers */
+  
+    .container {
+  
+        width: 100%;
+  
+        padding-left: 70px;
+  
+        padding-right: 25px;
+  
+    }
+  
+  
+    /* Make sure that all arrows are pointing leftwards */
+  
+    .container::before 
+    {
+  
+        left: 60px;
+  
+        border: medium solid white;
+  
+        border-width: 10px 10px 10px 0;
+  
+        border-color: transparent white transparent transparent;
+  
+    }
+
+  
+    /* Make sure all circles are at the same spot */
+  
+    .left::after, .right::after {
+  
+        left: 15px;
+  
+    }
+  
+  
+    /* Make all right containers behave like the left ones */
+  
+    .right 
+    {
+  
+        left: 0%;
+  }
+}
+    
+       .topleft 
+        {
+  
+            position: absolute;
+  
+            top: 0;
+  
+            left: 16px;
+            
+            padding: 15px;
+            
+            color: #B0E0E6;
+
+        }
+
+       
+        /* nav-bar(side-open) */
+        .overlay 
+        {
+            height: 100%;
+  
+            width: 25%;
+    
+            display: none;
+  
+            position: fixed;
+  
+            z-index: 1;
+  
+            top: 0;
+  
+            left: 0;
+  
+            background-color: #FB9902;
+  
+            background-color: #110934;
+
+        }
+
+        /* nav-bar contents */
+        .overlay-content 
+        {
+  
+            position: relative;
+  
+            top: 25%;
+  
+            width: 100%;
+  
+            text-align: center;
+  
+            margin-top: 30px;
+            
+        }
+
+        /* nav-bar links */
+        .overlay a 
+        {
+  
+            padding: 8px;
+  
+            text-decoration: none;
+  
+            font-size: 36px;
+  
+            color: #D4EDF7 ;
+  
+            display: block;
+  
+            transition: 0.3s;
+            
+            font-family: "Latinia";
+            
+            letter-spacing: 3px;
+            
+            line-height: 35px;
+
+        }
+
+        /* hover- links */
+        .overlay a:hover, .overlay a:focus 
+        {
+  
+            color: #FB9902;
+
+        }
+
+        /* close button- cross */
+        .overlay .closebtn 
+        {
+  
+            position: absolute;
+  
+            top: 20px;
+  
+            right: 45px;
+  
+            font-size: 60px;
+        }
+
+        /* sidenav-open */
+        #open 
+        {
+            color: #D4EDF7;
+            
+            font-family: "Vogue";
+            
+            font-size: 10px;
+        
+        }
+   .header 
+    {
+          padding: 10%; 
+    
+          text-align: center; 
+    
+          background: #347B98; 
+        
+        font-family: "AidaSerifObliqueMedium", serif;
+    
+          color: #B0E0E6;
+        
+        margin: auto;
+                       
+    }
+
+
+    /* Increase the font size of the <h1> element */
+
+    .header h1 
+    {
+  
+        font-size: 60px;
+
+    }
+    
+    
+    /* headings-topics for that page */
+        h2
+        {
+            text-align: center;
+                                
+            font-family: "Latinia";
+            
+            font-size: 35px;
+            
+            color: #B0E0E6;
+            
+        }
+
+        h3
+        { 
+            font-size: 35px;
+    
+            font-family: "Latinia";
+            
+            color: #347B98;
+            
+            margin-left: 10px;
+            
+            text-align: center;
+
+        }
+            
+     #headb
+        {
+            font-size: 25px;
+        }
+    
+          .footer 
+        {
+            padding: 20px; /* Some padding */
+            
+            text-align: center; /* Center text*/
+            
+            background: #110934; 
+            
+            color: #B0E0E6; /* PowderBlue */
+            
+            font-size: 30px;
+            
+            font-family: "Vogue";
+        
+        }
+          
+            
+</style>
+</head>
+<body>
+        
+            <div class="topleft">
+    
+                <div id="myNav" class="overlay">
+                
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  
+                     <div class="overlay-content">
+                         
+                         <a href="wshomepage.html">Home</a>
+    
+                        <a href="wsinfo.html">Information</a>
+    
+                        <a href="wstimeline1.html">TimeLine</a>
+    
+                        <a href="wssociety.html">Society</a>
+    
+                        <a href="wseconomy.html">Economy</a>
+                        
+                        <a href="wscountry.html">Country</a>
+  
+                    </div>
+
+                </div>
+
+                <span style="font-size:30px;cursor:pointer" onclick="openNav()" id="open">&#9776; open</span>
+  
+            </div>
+
+
+            <div class="header">
+  
+                <h1>TIME-LINE</h1>
+  
+                <p id="headb">How it all went on and on.</p>
+
+            </div>
+    
+    <h3>TIME-LINE COVID-19 </h3>
+
+
+<div class="timeline">
+    
+  <div class="container left">
+    <div class="content">
+      <h2>Dec 1, 2019 till Jan 17, 2020 :</h2>
+      <p> First Cases Reported in China; Outbreak Spreads to Other Countries</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>Week of Jan 18 till Jan 24:</h2>
+      <p> First Cases Appear in United States and Europe; The Closing of Wuhan</p>
+    </div>
+  </div>
+  <div class="container left">
+    <div class="content">
+      <h2>Week of Jan 25 till Jan 31:</h2>
+      <p> First Cases Appear in Many More Countries; Travel Bans Spread</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>Week of Feb 1 till Feb 7:</h2>
+      <p> First Deaths Outside China; Coordinated G7 Response; Chinese Stock Markets Plunge</p>
+    </div>
+  </div>
+  <div class="container left">
+    <div class="content">
+      <h2>Week of Feb 8 till Feb 14:</h2>
+      <p> Death Toll Surpasses That of SARS; WHO-led Team Heads for China; Cruise Ship Cases Surpass 100</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>Week of Feb 15 till Feb 21:</h2>
+      <p> Cruise Ship Cases Rise; Outbreaks in Iran, Italy, and South Korea; More Deaths Outside Mainland China</p>
+    </div>
+  </div>
+      <div class="container left">
+    <div class="content">
+      <h2>Week of Feb 22 till Feb 28:</h2>
+      <p>  Outbreaks Grow in Iran, Italy, and South Korea; Travel Restrictions Increase; Middle East and Europe Grapple With Spread</p>
+    </div>
+  </div>  <div class="container right">
+    <div class="content">
+      <h2>Week of Feb 29 till March 6:</h2>
+      <p>  New Outbreaks Increase in Europe and the Americas; More Deaths Outside China; SXSW Festival Cancelled. </p>
+    </div>
+  </div>  <div class="container left">
+    <div class="content">
+      <h2>Week of March 7 till March 13:</h2>
+      <p>  One Fifth of All Students Worldwide are out of School; New York City Declares State of Emergency; NBA Cancels Season</p>
+    </div>
+  </div>  <div class="container right">
+    <div class="content">
+      <h2>Week of March 14 till March 21:</h2>
+      <p>  China reports no new Coronavirus cases for its Third Consecutive Day; Italy becomes the country with the highest death-toll; President Trump signs the Families First Coronavirus Response Act into Law</p>
+    </div>
+  </div>  <div class="container left">
+    <div class="content">
+      <h2>Week of March 22 till March 29:</h2>
+      <p>  Nearly one third of the world's population is living under coronavirus-related restrictions; Japan Postpones 2020 Summer Olympics;  the WHO warns there is a "significant shortage" of medical supplies</p>
+    </div>
+  </div>  <div class="container right">
+    <div class="content">
+      <h2>Week of March 30 till April 4:</h2>
+      <p>  Worldwide coronavirus cases exceed one million; over 10 million Americans file for unemployment; Wimbledon Tennis Tournament canceled for the first time since World War Two </p>
+    </div>
+  </div>
+    
+       <div class="container left">
+    <div class="content">
+      <h2>Week of April 5 till April 12:</h2>
+      <p>  Wet markets reopen in Wuhan; the United States has the most Coronavirus deaths in the World; Boris Johnson Discharged from Intensive Care</p>
+    </div>
+  </div>
+    
+<div class="container right">
+    <div class="content">
+      <h2>Week of April 13 till April 20: </h2>
+      <p> China reports its first economic contraction in a decade; Austria becomes one of the first European countries to Reopen; President Trump Suspends Immigration</p>
+    </div>
+  </div>
+    
+    <div class="container left">
+    <div class="content">
+      <h2>Week of April 21 till April 28:</h2>
+      <p>  President Trump suspends immigration; China pledges $30 million to the WHO; Italy and Spain ease lockdown restrictions</p>
+    </div>
+  </div>
+</div>
+    
+    <br><br>
+    
+            <div class="footer">
+  
+                <p>STAY HOME! STAY SAFE!</p>
+
+            </div>
+    
+           <script>
+
+            function openNav() 
+            {
+  
+                document.getElementById("myNav").style.display = "block";
+
+            }
+
+
+            function closeNav() 
+            {
+  
+                document.getElementById("myNav").style.display = "none";
+
+            }
+
+        </script>
+
+</body>
+</html>
